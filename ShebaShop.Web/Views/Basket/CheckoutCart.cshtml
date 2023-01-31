@@ -1,0 +1,64 @@
+﻿@model ShebaShop.Web.ViewModels.BasketViewModel
+
+@{
+    ViewData["Title"] = "CheckoutCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CheckoutCart</h1>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+@if (Model == null)
+{
+    <h4> @ViewData["CartMsg"]</h4>
+}
+else
+{
+    <h4> @Model.BuyerId - Shopping Cart</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var imagePath = "/PostImages/" + item.Product.PhotoPath;
+                        }
+                        <img style="border:1px solid silver;" src="@imagePath" width="50" height="50" alt="No Image" />
+                    </td>
+                    <td>@item .ProductName</td>
+                    <td>@item.UnitPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.SubTotal()</td>
+                    @*<td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>*@
+                </tr>
+            }
+            <tr>
+                <td colspan="4" class="text-right"><b>Total Price :</b></td>
+                <td>
+                    @Model.Total()
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-2"><a asp-action="Index" asp-controller="Home">Continue Shopping</a></div>
+        <div class="col-md-8">&nbsp;</div>
+        <div class="col-md-2">@*<button class="btn btn-md btn-block btn-success text-uppercase" type="submit" asp-action="OrderPlace" asp-controller="Basket">CheckOut</button>*@
+           <a class="btn btn-md btn-block btn-success text-uppercase" asp-action="CreateOrder" asp-controller="Order">CheckOut</a>
+        </div>
+    </div>
+
+
+}

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ShebaShop.Web.Models.Product>
+@{
+    ViewData["Title"] = "Home Page";
+    var brands = (List<ProductBrand>)ViewData["Brands"];
+    var types = (List<ProductType>)ViewData["Types"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    @*<form asp-route-returnUrl="Index" method="post">
+
+        <div class="form-group">
+            <label>Brand Id</label>
+            <select class="form-control" asp-items='new SelectList(types,"Id","BrandName")'>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label  >Type Id</label>
+            <select class="form-control" asp-items='new SelectList(types,"Id","ProductTypeName")'>
+            </select>
+        </div>
+    </form>*@
+
+    <div class="col-md-12">
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_productIndividual", item);
+        }
+    </div>
+</div>

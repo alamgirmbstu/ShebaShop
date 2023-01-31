@@ -1,0 +1,74 @@
+﻿@model ShebaShop.Web.Models.Product
+
+<div>
+    <h4>Product</h4>
+    <hr />
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Available</th>
+                        <th class="text-center">Unit</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-right">Price</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form asp-action="AddToCart" class="form-inline" method="post">
+                        <tr>
+                            <td>
+                                @{
+                                    var imagePath = "/PostImages/" + Model.PhotoPath;
+
+                                    if (string.IsNullOrEmpty(Model.PhotoPath))
+                                    {
+                                        imagePath = "/PostImages/NoImage.png";
+                                    }
+                                }
+                                <img style="border:1px solid silver;" src="@imagePath" width="200" height="200" alt="No Image" />
+                            </td>
+                            <td>@Model.ProductName</td>
+                            <td>In stock</td>
+                            <td>@Model.Unit</td>
+                            <td class="text-right" >                                
+                                <input type="number" name="qty" min="1" max="100" value="1"  class="text-right" />
+                            </td>
+                            <td class="text-right">@Model.UnitPrice</td>
+                            <td>
+                                <input type="hidden" name="pid" value="@Model.Id" />
+                            </td>
+                            @*<td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>*@
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <a asp-action="Index" asp-controller="Home">Continue Shopping</a>
+                            </td>
+                            <td colspan="2">&nbsp;</td>
+                            <td colspan="2">
+                                <button class="btn btn-md btn-block btn-success text-uppercase" type="submit">Add to Cart</button>
+                            </td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+
+            @*<div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                </div>
+            </div>
+        </div>*@
+
+</div>
+@*<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>*@
